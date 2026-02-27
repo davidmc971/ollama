@@ -105,6 +105,9 @@ func GPUDevices(ctx context.Context, runners []ml.FilteredRunnerDiscovery) []ml.
 				} else if !envconfig.EnableVulkan() && strings.Contains(filepath.Base(dir), "vulkan") {
 					slog.Info("experimental Vulkan support disabled.  To enable, set OLLAMA_VULKAN=1")
 					continue
+				} else if !envconfig.EnableOpenCL() && strings.Contains(filepath.Base(dir), "opencl") {
+					slog.Info("experimental OpenCL support disabled.  To enable, set OLLAMA_OPENCL=1")
+					continue
 				}
 				dirs = []string{ml.LibOllamaPath, dir}
 			} else {
