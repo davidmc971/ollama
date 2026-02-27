@@ -178,6 +178,20 @@ if(NOT APPLE)
     endif()
 endif()
 
+if(NOT APPLE)
+    find_package(OpenCL)
+    if(OpenCL_FOUND)
+        # add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ml/backend/ggml/ggml/src/ggml-opencl)
+        install(TARGETS ggml-opencl
+            RUNTIME_DEPENDENCIES
+                PRE_INCLUDE_REGEXES OpenCL
+                PRE_EXCLUDE_REGEXES ".*"
+            RUNTIME DESTINATION ${OLLAMA_INSTALL_DIR} COMPONENT OpenCL
+            LIBRARY DESTINATION ${OLLAMA_INSTALL_DIR} COMPONENT OpenCL
+        )
+    endif()
+endif()
+
 option(MLX_ENGINE "Enable MLX backend" OFF)
 
 if(MLX_ENGINE)
